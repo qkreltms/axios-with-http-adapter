@@ -1,3 +1,3 @@
-1. /server에 가서 cmd에 node index.js 입력
-2. root에서 yarn start 입력
-3. root에서 yarn test --watch 입력
+1. go to /server and type node index.js in cli
+2. go to root folder and type yarn start
+3. type yarn test --watch
