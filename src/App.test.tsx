@@ -1,9 +1,20 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import App from './App';
+import nock from 'nock';
+import axios from "axios";
+axios.defaults.adapter = require('axios/lib/adapters/http')
 
-test('renders learn react link', () => {
+test('should shows text', async () => {
+  nock(`http://localhost:3333`)
+  .post('/')
+  .reply(200, { message: 'test', status: 200 })
+  
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  
+  fireEvent.change(screen.getByTestId('uploadButton'), {
+    target: { files: [{ name: 'test.nii' }] },
+  })
+
+  await waitFor(() => expect(screen.getByText('test')).toBeDefined()) 
 });
